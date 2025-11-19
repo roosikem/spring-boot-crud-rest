@@ -35,4 +35,47 @@ public class AppServiceImpl implements AppService {
             .get();
     }
 
+    @Override
+    public List<Optional<AppDTO>> getAllApps() {
+        return repository.findAll()
+            .stream()
+            .map(builder::build)
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<AppDTO> getAppById(Long id) {
+        return repository.findById(id)
+            .map(builder::build)
+            .orElseThrow(() -> new AppNotFoundException(String.format("No such App for id '%s'", id)));
+    }
+
+    @Transactional
+    @Override
+    public Optional<AppDTO> updateApp(Long id, AppDTO dto) {
+        return repository.findById(id)
+            .map(model -> builder.build(dto, model))
+            .map(repository::save)
+            .map(builder::build)
+            .orElseThrow(() -> new AppNotFoundException(String.format("No such App for id '%s'", id)));
+    }
+
+    @Override
+    public void deleteAppById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void populate() {
+        val faker = new Faker();
+        IntStream.range(0, 100).forEach(i -> {
+            App app = App.builder()
+                .author(faker.app().author())
+                .name(faker.app().name())
+                .version(faker.app().version())
+                .build();
+
+            repository.save(app);
+        });
+    }
 }
