@@ -1,0 +1,105 @@
+**Prompt: Final system-level technical document**
+
+```text
+You are a principal architect documenting the entire system.
+
+Using everything you can infer from the code, READMEs, and project structure, generate a single, consolidated **System Technical Document** in Markdown with the following structure:
+
+# 1. System Overview
+- Business context
+- High-level description of what this system does
+- Primary stakeholders and consumers
+
+# 2. Domain & Bounded Contexts
+- Identify major domains or bounded contexts (if visible)
+- Map modules/services to these domains
+
+# 3. Architecture Overview
+- Overall style (microservices, layered, modular monolith, etc.)
+- How modules/services interact
+- Synchronous vs asynchronous communication
+- External systems / integrations
+
+# 4. Module / Service Catalog
+For each module:
+- Name
+- Responsibilities
+- Key APIs / entry points
+- Data it reads/writes
+- Dependencies
+
+# 5. Key Flows
+Pick 2–3 critical end-to-end flows (e.g., “Create X”, “Update Y”, “Process Z”):
+- Describe the steps across services
+- Note the relevant APIs, services, and data stores
+- Mention error handling at a high level
+
+# 6. Data & Persistence
+- Main data stores and their roles
+- Important entities/collections/tables
+- Relationships between key data models
+
+# 7. Cross-Cutting Concerns
+- Authentication & authorization
+- Logging, tracing, auditing
+- Configuration management
+- Caching, performance considerations
+
+# 8. Operational Aspects
+- Deployment assumptions (containers, cloud, etc.)
+- Environments (dev, test, prod)
+- Monitoring & alerting hints (infer from code/logging if possible)
+
+# 9. Risks, Constraints & Tech Debt
+- Assumptions and constraints visible in code
+- Known or likely tech debt areas
+- Suggestions for future refactors or improvements
+
+Use only information you can infer from the repository. Be explicit when you are making a reasonable assumption.
+Output must be valid Markdown.
+
+# 10. create document in document folder inside root folder of project
+
+
+
+
+-----------------------------
+
+You are a system architect.
+
+From the perspective of the entire repository:
+
+1. Identify:
+   - All main modules/services
+   - External clients (UI, mobile, other systems)
+   - External dependencies (databases, queues, 3rd party APIs)
+   - Key communication paths between modules
+
+2. Generate two diagrams in Mermaid:
+
+### A. System Context Diagram
+Show:
+- Primary users/clients
+- This system (and sub-systems if applicable)
+- External systems and integrations
+
+Use a `flowchart TD` Mermaid diagram.
+
+### B. Container / Service Diagram
+Show:
+- Each container/service/module in this repository
+- Data stores
+- External systems
+- Arrows showing direction of calls or data flow
+
+Use a `flowchart LR` or C4-style Mermaid diagram.
+
+3. Add a short “Architect’s Notes” section explaining:
+- Key design decisions you can infer
+- Where the system is tightly or loosely coupled
+- Any potential risks or hotspots
+
+Output a single Markdown document. Diagrams must be wrapped in ```mermaid fenced blocks.
+
+4. create document in document folder inside root folder of project
+------------------------------
