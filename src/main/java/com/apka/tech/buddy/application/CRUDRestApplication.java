@@ -27,6 +27,6 @@ public class CRUDRestApplication implements CommandLineRunner {
    **/
   @Override
   public void run(String... args) {
-
+    service.populate();
   }
 }
